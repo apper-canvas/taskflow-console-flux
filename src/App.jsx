@@ -11,7 +11,7 @@ import ErrorPage from '@/components/pages/ErrorPage';
 import ResetPassword from '@/components/pages/ResetPassword';
 import PromptPassword from '@/components/pages/PromptPassword';
 import TasksPage from '@/components/pages/TasksPage';
-
+import CategoryManagement from '@/components/organisms/CategoryManagement';
 // Create auth context
 export const AuthContext = createContext(null);
 
@@ -118,13 +118,14 @@ function AppContent() {
   return (
     <AuthContext.Provider value={authMethods}>
       <div className="App">
-        <Routes>
+<Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/callback" element={<Callback />} />
           <Route path="/error" element={<ErrorPage />} />
           <Route path="/prompt-password/:appId/:emailAddress/:provider" element={<PromptPassword />} />
           <Route path="/reset-password/:appId/:fields" element={<ResetPassword />} />
+          <Route path="/categories" element={<CategoryManagement />} />
           <Route path="/" element={<TasksPage />} />
         </Routes>
         

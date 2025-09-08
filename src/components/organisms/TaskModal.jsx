@@ -199,16 +199,18 @@ dueDate: formData.dueDate || null,
                 min={new Date().toISOString().split("T")[0]}
               />
             </FormField>
-            
-            <FormField label="Category">
+<FormField label="Category">
               <Input
                 type="text"
-                placeholder="Enter category (e.g., Development, Design, Testing)"
+                placeholder="e.g., Development, Design, Testing, Security, Performance"
                 value={formData.category}
                 onChange={(e) => handleInputChange("category", e.target.value)}
+                className="transition-all duration-200"
               />
+              <div className="mt-2 text-xs text-gray-500">
+                Choose from: Development, Design, Documentation, Testing, Security, Performance, Marketing, Research, Planning
+              </div>
             </FormField>
-            
             {/* Actions */}
             <div className="flex justify-end gap-3 pt-4">
               <Button

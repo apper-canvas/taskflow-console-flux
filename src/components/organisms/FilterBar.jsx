@@ -13,8 +13,7 @@ const FilterBar = ({
 }) => {
   const hasActiveFilters = filters.status !== "all" || filters.priority !== "all";
 // Get unique categories from tasks
-  const categories = [...new Set(tasks?.filter(task => task.category).map(task => task.category))].sort();
-  
+const categories = [...new Set(tasks?.filter(task => task.category && task.category.trim()).map(task => task.category.trim()))].sort();
   return (
     <motion.div 
       initial={{ y: -10, opacity: 0 }}
