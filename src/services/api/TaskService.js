@@ -22,7 +22,8 @@ class TaskServiceClass {
           {"field": {"Name": "due_date_c"}},
           {"field": {"Name": "created_at_c"}},
           {"field": {"Name": "completed_at_c"}},
-          {"field": {"Name": "order_c"}}
+{"field": {"Name": "order_c"}},
+          {"field": {"Name": "category_c"}}
         ],
         orderBy: [{"fieldName": "Id", "sorttype": "DESC"}],
         pagingInfo: {"limit": 100, "offset": 0}
@@ -46,7 +47,8 @@ class TaskServiceClass {
         dueDate: task.due_date_c,
         createdAt: task.created_at_c,
         completedAt: task.completed_at_c,
-        order: task.order_c
+order: task.order_c,
+        category: task.category_c || ""
       }));
     } catch (error) {
       console.error("Error fetching tasks:", error?.response?.data?.message || error);
@@ -66,8 +68,9 @@ class TaskServiceClass {
           {"field": {"Name": "status_c"}},
           {"field": {"Name": "due_date_c"}},
           {"field": {"Name": "created_at_c"}},
-          {"field": {"Name": "completed_at_c"}},
-          {"field": {"Name": "order_c"}}
+{"field": {"Name": "completed_at_c"}},
+          {"field": {"Name": "order_c"}},
+          {"field": {"Name": "category_c"}}
         ]
       };
       
@@ -89,7 +92,8 @@ class TaskServiceClass {
         dueDate: task.due_date_c,
         createdAt: task.created_at_c,
         completedAt: task.completed_at_c,
-        order: task.order_c
+order: task.order_c,
+        category: task.category_c || ""
       };
     } catch (error) {
       console.error(`Error fetching task ${id}:`, error?.response?.data?.message || error);
@@ -110,7 +114,8 @@ class TaskServiceClass {
           due_date_c: taskData.dueDate,
           created_at_c: taskData.createdAt,
           completed_at_c: taskData.completedAt,
-          order_c: taskData.order ? parseInt(taskData.order) : 0
+order_c: taskData.order ? parseInt(taskData.order) : 0,
+          category_c: taskData.category || ""
         }]
       };
       
@@ -141,8 +146,9 @@ class TaskServiceClass {
             description: createdTask.description_c,
             projectId: createdTask.project_id_c,
             priority: createdTask.priority_c,
-            status: createdTask.status_c,
+status: createdTask.status_c,
             dueDate: createdTask.due_date_c,
+            category: createdTask.category_c || "",
             createdAt: createdTask.created_at_c,
             completedAt: createdTask.completed_at_c,
             order: createdTask.order_c
@@ -167,8 +173,9 @@ class TaskServiceClass {
       if (updateData.projectId !== undefined) updateFields.project_id_c = updateData.projectId ? parseInt(updateData.projectId) : null;
       if (updateData.priority !== undefined) updateFields.priority_c = updateData.priority;
       if (updateData.status !== undefined) updateFields.status_c = updateData.status;
-      if (updateData.dueDate !== undefined) updateFields.due_date_c = updateData.dueDate;
+if (updateData.dueDate !== undefined) updateFields.due_date_c = updateData.dueDate;
       if (updateData.completedAt !== undefined) updateFields.completed_at_c = updateData.completedAt;
+      if (updateData.category !== undefined) updateFields.category_c = updateData.category;
       if (updateData.order !== undefined) updateFields.order_c = updateData.order ? parseInt(updateData.order) : 0;
       
       const params = {
@@ -204,8 +211,9 @@ class TaskServiceClass {
             title: updatedTask.title_c,
             description: updatedTask.description_c,
             projectId: updatedTask.project_id_c,
-            priority: updatedTask.priority_c,
+priority: updatedTask.priority_c,
             status: updatedTask.status_c,
+            category: updatedTask.category_c || "",
             dueDate: updatedTask.due_date_c,
             createdAt: updatedTask.created_at_c,
             completedAt: updatedTask.completed_at_c,

@@ -1,16 +1,19 @@
 import React from "react";
 import { motion } from "framer-motion";
 import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
 import Select from "@/components/atoms/Select";
+import Button from "@/components/atoms/Button";
 
 const FilterBar = ({ 
   filters, 
   onFilterChange, 
   onClearFilters,
-  taskCount = 0 
+  taskCount = 0,
+  tasks = []
 }) => {
   const hasActiveFilters = filters.status !== "all" || filters.priority !== "all";
+// Get unique categories from tasks
+  const categories = [...new Set(tasks?.filter(task => task.category).map(task => task.category))].sort();
   
   return (
     <motion.div 
@@ -45,6 +48,17 @@ const FilterBar = ({
               <option value="high">High</option>
               <option value="medium">Medium</option>
               <option value="low">Low</option>
+</Select>
+            
+            <Select
+              value={filters.category}
+              onChange={(value) => onFilterChange("category", value)}
+              className="min-w-[120px]"
+            >
+              <option value="all">All Categories</option>
+              {categories.map(category => (
+                <option key={category} value={category}>{category}</option>
+              ))}
             </Select>
             
             {hasActiveFilters && (

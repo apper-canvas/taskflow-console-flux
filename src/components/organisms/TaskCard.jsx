@@ -117,11 +117,17 @@ const TaskCard = ({
           </div>
         </div>
         
-        {/* Footer */}
+{/* Footer */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             {project && (
               <ProjectBadge project={project} size="sm" />
+            )}
+            {task.category && (
+              <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-md">
+                <ApperIcon name="Tag" size={10} className="mr-1" />
+                {task.category}
+              </span>
             )}
           </div>
           

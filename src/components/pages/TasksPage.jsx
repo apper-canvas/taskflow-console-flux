@@ -19,9 +19,10 @@ const TasksPage = () => {
   // UI State
   const [selectedProject, setSelectedProject] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filters, setFilters] = useState({
+const [filters, setFilters] = useState({
     status: "all",
-    priority: "all"
+    priority: "all",
+    category: "all"
   });
   
   // Modal State
@@ -57,7 +58,7 @@ const TasksPage = () => {
   
   // Filter and search tasks
   const filteredTasks = useMemo(() => {
-    return tasks.filter(task => {
+return tasks.filter(task => {
       // Project filter
       if (selectedProject && task.projectId !== selectedProject.Id) {
         return false;
@@ -69,8 +70,9 @@ const TasksPage = () => {
         const matchesTitle = task.title.toLowerCase().includes(query);
         const matchesDescription = task.description?.toLowerCase().includes(query);
         const matchesProject = projects.find(p => p.Id === task.projectId)?.name.toLowerCase().includes(query);
+        const matchesCategory = task.category?.toLowerCase().includes(query);
         
-        if (!matchesTitle && !matchesDescription && !matchesProject) {
+        if (!matchesTitle && !matchesDescription && !matchesProject && !matchesCategory) {
           return false;
         }
       }
@@ -82,6 +84,11 @@ const TasksPage = () => {
       
       // Priority filter
       if (filters.priority !== "all" && task.priority !== filters.priority) {
+        return false;
+      }
+      
+      // Category filter
+      if (filters.category !== "all" && task.category !== filters.category) {
         return false;
       }
       
@@ -275,8 +282,8 @@ const TasksPage = () => {
     setFilters(prev => ({ ...prev, [filterType]: value }));
   };
   
-  const handleClearFilters = () => {
-    setFilters({ status: "all", priority: "all" });
+const handleClearFilters = () => {
+    setFilters({ status: "all", priority: "all", category: "all" });
     setSearchQuery("");
     setSelectedProject(null);
   };
@@ -301,11 +308,12 @@ const TasksPage = () => {
         />
         
         <main className="flex-1 min-h-screen">
-          <FilterBar
+<FilterBar
             filters={filters}
             onFilterChange={handleFilterChange}
             onClearFilters={handleClearFilters}
             taskCount={filteredTasks.length}
+            tasks={tasks}
           />
           
           <div className="p-6">

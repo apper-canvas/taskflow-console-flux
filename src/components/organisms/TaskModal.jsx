@@ -15,12 +15,13 @@ const TaskModal = ({
   task = null, 
   projects = []
 }) => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     title: "",
     description: "",
     projectId: "",
     priority: "medium",
-    dueDate: ""
+    dueDate: "",
+    category: ""
   });
   
   const [errors, setErrors] = useState({});
@@ -31,16 +32,18 @@ const TaskModal = ({
         title: task.title || "",
         description: task.description || "",
         projectId: task.projectId || "",
-        priority: task.priority || "medium",
-        dueDate: task.dueDate ? task.dueDate.split("T")[0] : ""
+priority: task.priority || "medium",
+        dueDate: task.dueDate ? task.dueDate.split("T")[0] : "",
+        category: task.category || ""
       });
     } else {
       setFormData({
         title: "",
         description: "",
         projectId: "",
-        priority: "medium",
-        dueDate: ""
+priority: "medium",
+        dueDate: "",
+        category: ""
       });
     }
     setErrors({});
@@ -74,7 +77,8 @@ const TaskModal = ({
     
     const taskData = {
       ...formData,
-      dueDate: formData.dueDate || null
+dueDate: formData.dueDate || null,
+      category: formData.category || ""
     };
     
     onSubmit(taskData);
@@ -185,7 +189,7 @@ const TaskModal = ({
                   </div>
                 </div>
               </FormField>
-            </div>
+</div>
             
             <FormField label="Due Date">
               <Input
@@ -193,6 +197,15 @@ const TaskModal = ({
                 value={formData.dueDate}
                 onChange={(e) => handleInputChange("dueDate", e.target.value)}
                 min={new Date().toISOString().split("T")[0]}
+              />
+            </FormField>
+            
+            <FormField label="Category">
+              <Input
+                type="text"
+                placeholder="Enter category (e.g., Development, Design, Testing)"
+                value={formData.category}
+                onChange={(e) => handleInputChange("category", e.target.value)}
               />
             </FormField>
             
